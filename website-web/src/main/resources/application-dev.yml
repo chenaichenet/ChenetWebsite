@@ -1,0 +1,30 @@
+server:
+  port: 9000
+
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: Website-Web
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        import-check:
+          enabled: false
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  security:
+    user:
+      name: test
+      password: test
+      roles: ADMIN 
+        
+logging:
+  level:
+    root: error
+    pers.website: error
+  file:
+    name: logs/website-web-dev.log
