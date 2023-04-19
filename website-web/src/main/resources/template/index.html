@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head lang="zh" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<label>
+    <input id="email" name="email" placeholder="邮箱" type="email" th:placeholder="#{language.email}">
+    <input id="password" name="password" placeholder="密码" type="password" th:placeholder="#{language.password}">
+</label>
+<button id="login_btn" onclick="login()">登录</button>
+<p id="demo"></p>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../js/main.js"></script>
+</html>
