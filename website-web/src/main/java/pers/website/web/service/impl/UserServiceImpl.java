@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
             return blogFeignClient.registeredVerCode(email);
         } else {
             return FeignDataDTO.<String>builder()
-                    .state(Constants.FeignState.STATE_ERROR)
+                    .state(Constants.FEIGN_STATE_ERROR)
                     .message("邮箱格式错误").build();
         }
     }

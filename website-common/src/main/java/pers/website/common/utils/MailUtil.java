@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import pers.website.common.constants.Constants;
 import pers.website.common.exceptions.CustomException;
 
 import java.io.*;
@@ -16,6 +15,8 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static pers.website.common.constants.Constants.MailUtilConf.*;
 
 /**
  * 邮件工具类
@@ -59,7 +60,7 @@ public class MailUtil {
         // 创建Session会话
         Properties props = new Properties();
         props.setProperty("mail.transport.protocol", "SMTP");
-        props.setProperty("mail.host", Constants.MailConf.MAIL_HOST);
+        props.setProperty("mail.host", MAIL_HOST);
         props.setProperty("mail.smtp.auth", "true");
         props.setProperty("mail.smtp.connectiontimeout", "25000");
         props.setProperty("mail.smtp.timeout", "25000");
@@ -68,7 +69,7 @@ public class MailUtil {
         Authenticator auth = new Authenticator() {
             @Override
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(Constants.MailConf.USERNAME, DesUtil.decrypt(Constants.MailConf.PASSWORD));
+                return new PasswordAuthentication(USERNAME, DesUtil.decrypt(PASSWORD));
             }
         };
         Session session = Session.getInstance(props, auth);
@@ -76,7 +77,7 @@ public class MailUtil {
         // 创建一个Message，邮件内容
         Message message = new MimeMessage(session);
         try {
-            message.setFrom(new InternetAddress(Constants.MailConf.USERNAME));
+            message.setFrom(new InternetAddress(USERNAME));
             message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(address));
             message.setSubject(title);
             message.setContent(mailContent, "text/html;charset=utf-8");
@@ -100,7 +101,7 @@ public class MailUtil {
         InputStream is = null;
         Reader reader = null;
         try {
-            is = MailUtil.class.getClassLoader().getResourceAsStream(Constants.MailConf.TEMPLATES_PATH);
+            is = MailUtil.class.getClassLoader().getResourceAsStream(TEMPLATES_PATH);
             if (is == null) {
                 log.error("未找到邮件模板文件");
                 throw new CustomException("未找到邮件模板文件，生成流失败");

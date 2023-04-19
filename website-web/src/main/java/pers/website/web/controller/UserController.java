@@ -70,7 +70,7 @@ public class UserController {
         String verCode = ParamUtil.getHashMapValue(jsonData, "ver_code");
         if (ParamUtil.isNotEmpty(true, userName, password, passwordOk, verCode)) {
             FeignDataDTO<String> feignDataDTO = userService.registered(userName, email, password, passwordOk, verCode);
-            if (Constants.FeignState.STATE_SUCCESS.equals(feignDataDTO.getState())) {
+            if (Constants.FEIGN_STATE_SUCCESS.equals(feignDataDTO.getState())) {
                 return ResultVO.ok();
             } else {
                 return ResultVO.status(ResultEnum.RESULT_FEIGN_EMPTY, feignDataDTO);
@@ -141,7 +141,7 @@ public class UserController {
         String description = ParamUtil.getHashMapValue(jsonData, "description");
         if (ParamUtil.isNotEmpty(false, userName, passwordOld, password, passwordOk, phone, email, description)) {
             FeignDataDTO<String> stringFeignDataDTO = userService.updateUser(userName, passwordOld, password, passwordOk, phone, email, description);
-            if (Constants.FeignState.STATE_SUCCESS.equals(stringFeignDataDTO.getState())) {
+            if (Constants.FEIGN_STATE_SUCCESS.equals(stringFeignDataDTO.getState())) {
                 return ResultVO.ok();
             } else {
                 return ResultVO.status(ResultEnum.RESULT_FEIGN_EMPTY, stringFeignDataDTO);
