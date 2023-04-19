@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pers.chenet.website</groupId>
+    <artifactId>website-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>ChenetWebsite</name>
+    <description>个人网站</description>
+    <url>https://chetchen</url>
+    <modules>
+        <module>website-web</module>
+        <module>website-common</module>
+        <module>website-blog</module>
+    </modules>
+
+    <!--开发者信息-->
+    <developers>
+        <developer>
+            <id>ChenetChen</id>
+            <name>ChenetChen</name>
+            <email>chenaichenet@yeah.net</email>
+            <url>https://github.com/chenaichenet</url>
+            <roles>
+                <role>Project Manager</role>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+            <organization>BambooBreezeSweet</organization>
+            <organizationUrl>https://github.com/BambooBreezeSweet</organizationUrl>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <!--版本管理-->
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring.boot.dependencies.version>3.0.4</spring.boot.dependencies.version>
+        <spring.cloud.dependencies.version>2022.0.0</spring.cloud.dependencies.version>
+        <spring.cloud.alibaba.dependencies.version>2022.0.0.0-RC1</spring.cloud.alibaba.dependencies.version>
+        <springfox.starter.version>3.0.0</springfox.starter.version>
+        <mysql.connector.java.version>8.0.32</mysql.connector.java.version>
+        <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
+        <lombok.version>1.18.26</lombok.version>
+        <commons.lang3.version>3.12.0</commons.lang3.version>
+        <jsoup.version>1.15.4</jsoup.version>
+        <fastjson.version>2.0.24</fastjson.version>
+        <commonmark.version>0.17.0</commonmark.version>
+        <commonmark.ext.gfm.tables.version>0.17.0</commonmark.ext.gfm.tables.version>
+        <commonmark.ext.heading.anchor.version>0.17.0</commonmark.ext.heading.anchor.version>
+    </properties>
+
+    <!--依赖管理-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!--SpringBoot起步依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!--SpringBoot Web依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--SpringBoot Test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--SpringBoot 热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+    
+</project>
