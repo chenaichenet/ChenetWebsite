@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pers.website.common.dao.UserDao">
+    <sql id="user_column">
+        user_id, user_name, user_avatar, user_level, user_password, user_email, user_create_time, user_roles_list, user_description, user_state
+    </sql>
+    <resultMap id="userMap" type="pers.website.common.pojo.po.User">
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_avatar" property="userAvatar"/>
+        <result column="user_level" property="userLevel"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="user_create_time" property="userCreateTime"/>
+        <result column="user_description" property="userDescription"/>
+        <result column="user_state" property="userState"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="userMap">
+        SELECT * FROM t_user;
+    </select>
+    
+    <select id="findByFilter" parameterType="pers.website.common.pojo.po.User" resultMap="userMap">
+        SELECT * FROM t_user
+        <where>
+            1=1
+            <if test="userId != null and userId!= ''">
+                AND user_id = #{userId}
+            </if>
+            <if test="userName != null and userName!= ''">
+                AND user_name = #{userName}
+            </if>
+            <if test="userAvatar != null and userAvatar!= ''">
+                AND user_avatar = #{userAvatar}
+            </if>
+            <if test="userLevel != null and userLevel!= ''">
+                AND user_level = #{userLevel}
+            </if>
+            <if test="userPassword != null and userPassword!= ''">
+                AND user_password = #{userPassword}
+            </if>
+            <if test="userEmail != null and userEmail!= ''">
+                AND user_email = #{userEmail}
+            </if>
+            <if test="userCreateTime != null and userCreateTime!= ''">
+                AND user_create_time = #{userCreateTime}
+            </if>
+            <if test="userDescription != null and userDescription!= ''">
+                AND user_description = #{userDescription}
+            </if>
+            <if test="userState != null and userState!= ''">
+                AND user_state = #{userState}
+            </if>
+        </where>
+    </select>
+    
+    <insert id="insertUser" parameterType="pers.website.common.pojo.po.User">
+        INSERT INTO t_user (<include refid="user_column"/>)
+        VALUES (#{userID}, #{userName}, #{userAvatar}, #{userLevel}, #{userPassword}, #{userEmail}, #{userCreateTime}, #{userRolesList}, #{userDescription}, #{userState})
+    </insert>
+    
+    <update id="updateUser" parameterType="pers.website.common.pojo.po.User">
+        UPDATE t_user
+        <set>
+            <if test="userId != null and userId!= ''">
+                user_id = #{userId},
+            </if>
+            <if test="userName != null and userName!= ''">
+                user_name = #{userName},
+            </if>
+            <if test="userAvatar != null and userAvatar!= ''">
+                user_avatar = #{userAvatar},
+            </if>
+            <if test="userLevel != null and userLevel!= ''">
+                 user_level = #{userLevel},
+            </if>
+            <if test="userPassword != null and userPassword!= ''">
+                 user_password = #{userPassword},
+            </if>
+            <if test="userEmail != null and userEmail!= ''">
+                 user_email = #{userEmail},
+            </if>
+            <if test="userCreateTime != null and userCreateTime!= ''">
+                 user_create_time = #{userCreateTime},
+            </if>
+            <if test="userDescription != null and userDescription!= ''">
+                 user_description = #{userDescription},
+            </if>
+            <if test="userState != null and userState!= ''">
+                 user_state = #{userState},
+            </if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+    
+    <delete id="deleteUser" parameterType="pers.website.common.pojo.po.User">
+        DELETE FROM t_user WHERE user_id = #{userId}
+    </delete>
+</mapper>
