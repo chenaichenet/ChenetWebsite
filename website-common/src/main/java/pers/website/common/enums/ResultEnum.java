@@ -24,22 +24,21 @@ public enum ResultEnum {
      * 系统异常
      */
     ERROR("E0000","系统异常"),
+    
     /**
      * 参数为空
      */
     PARAM_EMPTY("EP001","参数为空"),
-    /**
-     * 参数格式错误
-     */
-    PARAM_FORMAT_ERROR("EP002", "参数格式错误"),
+    
     /**
      * 结果为空
      */
-    RESULT_EMPTY("ER001","结果为空"),
+    RESULT_EMPTY("R0001","结果为空"),
+    
     /**
      * 远程调用失败，结果为空
      */
-    RESULT_FEIGN_EMPTY("ER002","远程调用失败，结果为空");
+    RESULT_FEIGN_EMPTY("RF001","远程调用失败，结果为空");
 
     /**
      * 结果编码

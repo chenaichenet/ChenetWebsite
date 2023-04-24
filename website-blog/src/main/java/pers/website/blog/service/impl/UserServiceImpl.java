@@ -178,7 +178,8 @@ public class UserServiceImpl implements UserService {
      * @return 结果集
      */
     @Override
-    public String updateUser(String userName,String passwordOld, String passwordNew, String phone, String email, String description) {
+    public String updateUser(String userName, String passwordOld, String passwordNew,
+                             String phone, String email, String description) {
         List<User> userList = userDao.findByFilter(User.builder().userEmail(email).build());
         if (!userList.isEmpty() && userList.size() != 1) {
             User oldUser = userList.get(0);

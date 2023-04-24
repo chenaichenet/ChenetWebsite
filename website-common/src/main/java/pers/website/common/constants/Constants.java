@@ -21,6 +21,10 @@ public interface Constants {
      * 远程调用失败
      */
     String FEIGN_STATE_ERROR = "-1";
+    /**
+     * 远程调用拦截
+     */
+    String FEIGN_STATE_INTERCEPT = "-2";
     
     /**
      * 远程调用返回默认状态值
