@@ -24,19 +24,19 @@ public class ImageUtil {
 
     /**
      * 添加水印
-     * @param watermarkType 水印样式
+     * @param watermarkType 水印样式（1：全图水印；2：右下角水印）
      * @param markText 文字水印
      * @param srcImgPath 图片源路径
      * @param targetPath 目标路径
      * @param imgFormat 图片格式
      */
-    public static void addWatermark(Integer watermarkType, String markText, String srcImgPath, String targetPath, String imgFormat) {
-        addWatermark(watermarkType, markText, srcImgPath, targetPath, FONT_SIZE, MASK_DEGREE, MASK_OPACITY, imgFormat);
+    public static void addWatermark(Integer watermarkType, String markText, Color color, String srcImgPath, String targetPath, String imgFormat) {
+        addWatermark(watermarkType, markText, COLOR, srcImgPath, targetPath, FONT_SIZE, MASK_DEGREE, MASK_OPACITY, imgFormat);
     }
 
     /**
      * 添加水印
-     * @param watermarkType 水印样式
+     * @param watermarkType 水印样式（1：全图水印；2：右下角水印）
      * @param maskText 水印文字
      * @param srcImgPath 图片源路径
      * @param targetPath 图片输出路径
@@ -45,12 +45,12 @@ public class ImageUtil {
      * @param opacity 水印不透明度
      * @param imgFormat 输出图片格式
      */
-    public static void addWatermark(Integer watermarkType, String maskText, String srcImgPath, String targetPath,
+    public static void addWatermark(Integer watermarkType, String maskText, Color color, String srcImgPath, String targetPath,
                                     Integer fontSize, Integer degree, float opacity, String imgFormat) {
         try {
             BufferedImage bufferedImage = getBufferedImage(srcImgPath);
             Assert.notNull(bufferedImage, "图片对象为空");
-            drawWatermark(watermarkType, maskText, fontSize, degree, opacity, bufferedImage);
+            drawWatermark(watermarkType, maskText, color, fontSize, degree, opacity, bufferedImage);
             try (OutputStream outputStream = Files.newOutputStream(Paths.get(targetPath))) {
                 ImageIO.write(bufferedImage, imgFormat, outputStream);
             }
@@ -61,14 +61,15 @@ public class ImageUtil {
 
     /**
      * 绘制水印
-     * @param watermarkType 水印样式
+     * @param watermarkType 水印样式（1：全图水印；2：右下角水印）
      * @param markText 水印文字
+     * @param color 水印颜色
      * @param fontSize 字体大小
      * @param degree 旋转角度
      * @param opacity 不透明度
      * @param bufferedImage 图片对象
      */
-    private static void drawWatermark(Integer watermarkType, String markText, Integer fontSize,
+    private static void drawWatermark(Integer watermarkType, String markText, Color color, Integer fontSize,
                                       Integer degree, float opacity, BufferedImage bufferedImage) {
         // 基于图片对象创建画笔
         Graphics2D graphics2D = bufferedImage.createGraphics();
@@ -76,7 +77,7 @@ public class ImageUtil {
         graphics2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         // 设置旋转角度、颜色、字体、透明度
-        graphics2D.setColor(Color.RED);
+        graphics2D.setColor(color);
         graphics2D.setFont(new Font(Font.DIALOG, Font.ITALIC, fontSize));
         graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, opacity));
         

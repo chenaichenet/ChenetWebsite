@@ -1,5 +1,7 @@
 package pers.website.common.constants;
 
+import java.awt.Color;
+
 /**
  * 常量定义
  *
@@ -91,6 +93,10 @@ public interface Constants {
          * 字体大小
          */
         public static final Integer FONT_SIZE = 20;
+        /**
+         * 颜色
+         */
+        public static final Color COLOR = Color.GRAY;
     }
 
     /**

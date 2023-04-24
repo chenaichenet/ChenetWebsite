@@ -1,18 +1,19 @@
 package pers.website.common.utils;
 
 import org.commonmark.Extension;
-import org.commonmark.ext.gfm.tables.TableBlock;
 import org.commonmark.ext.gfm.tables.TablesExtension;
-import org.commonmark.node.Link;
+import org.commonmark.ext.heading.anchor.HeadingAnchorExtension;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.AttributeProvider;
 import org.commonmark.renderer.html.AttributeProviderContext;
 import org.commonmark.renderer.html.AttributeProviderFactory;
 import org.commonmark.renderer.html.HtmlRenderer;
-import org.commonmark.ext.heading.anchor.HeadingAnchorExtension;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * markdown格式工具类
@@ -66,7 +67,7 @@ public class MarkDownUtil {
     static class CustomAttributeProvider implements AttributeProvider {
         @Override
         public void setAttributes(Node node, String tagName, Map<String, String> attributes) {
-            //改变a标签的target属性为_blank
+            // 改变a标签的target属性为_blank
             if (node != null) {
                 attributes.put("target", "_blank");
             }

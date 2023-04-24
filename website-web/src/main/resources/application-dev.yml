@@ -28,3 +28,6 @@ logging:
     pers.website: error
   file:
     name: logs/website-web-dev.log
+
+swagger:
+  enable: false
