@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import pers.website.common.constants.Constants;
 import pers.website.common.pojo.dto.FeignDataDTO;
 import pers.website.common.pojo.po.User;
-import pers.website.common.utils.MailUtil;
+import pers.website.common.utils.MailUtils;
 import pers.website.common.utils.ParamUtil;
 import pers.website.web.feign.BlogFeignClient;
 import pers.website.web.service.UserService;
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public FeignDataDTO<String> registeredVerCode(String email) {
-        if (Boolean.TRUE.equals(MailUtil.checkMail(email))) {
+        if (Boolean.TRUE.equals(MailUtils.checkMail(email))) {
             return blogFeignClient.registeredVerCode(email);
         } else {
             return FeignDataDTO.<String>builder()
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public FeignDataDTO<String> registered(String userName, String email, String password, String passwordOk, String verCode) {
         if (password.equals(passwordOk)) {
-            if (Boolean.TRUE.equals(MailUtil.checkMail(email))) {
+            if (Boolean.TRUE.equals(MailUtils.checkMail(email))) {
                 return blogFeignClient.registered(userName, email, password, verCode);
             } else {
                 return FeignDataDTO.<String>builder()
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public FeignDataDTO<String> deleteUserVerCode(String email) {
-        if (Boolean.TRUE.equals(MailUtil.checkMail(email))) {
+        if (Boolean.TRUE.equals(MailUtils.checkMail(email))) {
             return blogFeignClient.deleteUserVerCode(email);
         } else {
             return FeignDataDTO.<String>builder()
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public FeignDataDTO<User> login(String email, String password) {
-        if (Boolean.TRUE.equals(MailUtil.checkMail(email))){
+        if (Boolean.TRUE.equals(MailUtils.checkMail(email))){
             return blogFeignClient.login(email, password);
         } else {
             return FeignDataDTO.<User>builder()

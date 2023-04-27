@@ -41,7 +41,7 @@ public class ParamUtil {
 
     /**
      * 判断参数是否不为空
-     * @param all
+     * @param all 是否全部校验
      * <pre>true时，表示参数全部都不能为空</pre>
      * <pre>false时，表示只要有一个参数不为空即可</pre>
      * @param objects 参数

@@ -22,16 +22,16 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class RedisUtil {
+public class RedisUtils {
     private static final String REDIS_ERROR = "Redis处理异常";
  
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    public RedisUtil() {
+    public RedisUtils() {
     }
 
-    public RedisUtil(StringRedisTemplate stringRedisTemplate) {
+    public RedisUtils(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 

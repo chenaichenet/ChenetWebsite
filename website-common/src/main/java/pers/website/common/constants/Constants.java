@@ -45,10 +45,28 @@ public interface Constants {
     }
 
     /**
+     * Redis键名常量
+     */
+    class RedisKey {
+        /**
+         * 注册验证码键名
+         */
+        public static final String REDIS_REGISTER_VER_CODE = "REGISTER_VER_CODE";
+        /**
+         * 注销验证码键名
+         */
+        public static final String REDIS_DELETE_VER_CODE = "DELETE_VER_CODE";
+        /**
+         * 敏感词键名
+         */
+        public static final String REDIS_BAD_WORD = "BAD_WORD";
+    }
+
+    /**
      * 邮件工具类常量
      * todo-chen 邮件配置应该放在nacos配置中心上进行存储，并且应该设置为热部署
      */
-    class MailUtilConf {
+    class MailUtilsConf {
         /**
          * 邮箱主机域名
          */
@@ -70,7 +88,7 @@ public interface Constants {
     /**
      * IP工具类常量
      */
-    class IpUtilConf {
+    class IpUtilsConf {
         /**
          * 未知
          */
@@ -84,7 +102,7 @@ public interface Constants {
     /**
      * 图片工具类常量
      */
-    class ImageUtilConf{
+    class ImageUtilsConf {
         /**
          * 旋转角度
          */
@@ -104,16 +122,30 @@ public interface Constants {
     }
 
     /**
-     * Redis键名常量
+     * 敏感词过滤工具类常量
      */
-    class RedisKey {
+    class WordFilterUtilsConf {
         /**
-         * 注册验证码键名
+         * 最小匹配规则
          */
-        public static final String REDIS_REGISTER_VER_CODE = "REGISTER_VER_CODE";
+        public static final int MIN_MATCH_TYPE = 1;
         /**
-         * 注销验证码键名
+         * 最大匹配规则
          */
-        public static final String REDIS_DELETE_VER_CODE = "DELETE_VER_CODE";
+        public static final int MAX_MATCH_TYPE = 2;
+        /**
+         * 替换字符
+         */
+        public static final String REPLACE_CHAR = "*";
+    }
+
+    /**
+     * 加密工具类常量
+     */
+    class DesUtilsConf {
+        /**
+         * DES加密密钥关键字
+         */
+        public static final String STR_KEY = "Chenet_Website";
     }
 }

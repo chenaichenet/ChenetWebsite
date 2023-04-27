@@ -21,7 +21,7 @@ import java.util.Set;
  * @author ChenetChen
  * @since 2023/3/7 17:27
  */
-public class MarkDownUtil {
+public class MarkDownUtils {
     /**
      * markdown格式转换成HTML格式
      * @param markdown markdown格式文本

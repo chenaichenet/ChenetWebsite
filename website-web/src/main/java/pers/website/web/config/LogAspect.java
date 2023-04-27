@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import pers.website.common.utils.IpUtil;
+import pers.website.common.utils.IpUtils;
 
 import java.util.Arrays;
 
@@ -24,7 +24,7 @@ import java.util.Arrays;
 public class LogAspect {
 
     @Resource
-    IpUtil ipUtils;
+    IpUtils ipUtils;
 
     private static class RequestLog{
         private final String url;

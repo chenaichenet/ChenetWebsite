@@ -16,7 +16,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static pers.website.common.constants.Constants.MailUtilConf.*;
+import static pers.website.common.constants.Constants.MailUtilsConf.*;
 
 /**
  * 邮件工具类
@@ -25,7 +25,7 @@ import static pers.website.common.constants.Constants.MailUtilConf.*;
  * @since 2023/3/7 12:32
  */
 @Slf4j
-public class MailUtil {
+public class MailUtils {
     /**
      * 正则校验邮箱地址
      * @param emailAddress 邮箱地址
@@ -69,7 +69,7 @@ public class MailUtil {
         Authenticator auth = new Authenticator() {
             @Override
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(USERNAME, DesUtil.decrypt(PASSWORD));
+                return new PasswordAuthentication(USERNAME, DesUtils.desCrypt(PASSWORD, 1));
             }
         };
         Session session = Session.getInstance(props, auth);
@@ -101,7 +101,7 @@ public class MailUtil {
         InputStream is = null;
         Reader reader = null;
         try {
-            is = MailUtil.class.getClassLoader().getResourceAsStream(TEMPLATES_PATH);
+            is = MailUtils.class.getClassLoader().getResourceAsStream(TEMPLATES_PATH);
             if (is == null) {
                 log.error("未找到邮件模板文件");
                 throw new CustomException("未找到邮件模板文件，生成流失败");

@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static pers.website.common.constants.Constants.ImageUtilConf.*;
+import static pers.website.common.constants.Constants.ImageUtilsConf.*;
 
 /**
  * 图片工具类
@@ -20,7 +20,7 @@ import static pers.website.common.constants.Constants.ImageUtilConf.*;
  * @author ChenetChen
  * @since 2023/4/19 9:29
  */
-public class ImageUtil {
+public class ImageUtils {
 
     /**
      * 添加水印

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 
-import static pers.website.common.constants.Constants.IpUtilConf.*;
+import static pers.website.common.constants.Constants.IpUtilsConf.*;
 
 /**
  * IP工具类
@@ -16,7 +16,7 @@ import static pers.website.common.constants.Constants.IpUtilConf.*;
  */
 @Slf4j
 @Component
-public class IpUtil {
+public class IpUtils {
     /**
      * 获取IP地址
      * @param request 请求

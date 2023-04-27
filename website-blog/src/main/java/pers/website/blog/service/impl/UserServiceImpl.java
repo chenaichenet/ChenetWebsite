@@ -20,9 +20,9 @@ import pers.website.common.exceptions.CustomException;
 import pers.website.common.pojo.po.Roles;
 import pers.website.common.pojo.po.User;
 import pers.website.common.pojo.po.UserRoles;
-import pers.website.common.utils.MailUtil;
+import pers.website.common.utils.MailUtils;
 import pers.website.common.utils.ParamUtil;
-import pers.website.common.utils.RedisUtil;
+import pers.website.common.utils.RedisUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     private RoleDao roleDao;
 
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtil;
 
     /**
      * 获取注册验证码
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         if (count == 0) {
             String verCode = ParamUtil.newVerCode(6);
             if (Boolean.TRUE.equals(redisUtil.hashPut(Constants.RedisKey.REDIS_REGISTER_VER_CODE, email, verCode, 120))) {
-                MailUtil.sendMail(email, "注册", verCode);
+                MailUtils.sendMail(email, "注册", verCode);
                 return verCode;
             } else {
                 log.error("缓存验证码失败");
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
     public String deleteUserVerCode(String email) {
         String verCode = ParamUtil.newVerCode(6);
         if (Boolean.TRUE.equals(redisUtil.hashPut(Constants.RedisKey.REDIS_DELETE_VER_CODE, email, verCode, 120))) {
-            MailUtil.sendMail(email, "注销", verCode);
+            MailUtils.sendMail(email, "注销", verCode);
             return verCode;
         } else {
             log.error("缓存验证码失败");
