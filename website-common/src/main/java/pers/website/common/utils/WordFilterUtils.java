@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static pers.website.common.constants.Constants.RedisKey.REDIS_BAD_WORD;
+import static pers.website.common.constants.Constants.WordFilterUtilsConf.*;
+
 /**
  * 词语脱敏工具类
  *  <pre>使用{@link #filterWord(String)}方法进行脱敏</pre>
@@ -19,13 +22,9 @@ import java.util.Set;
  */
 @Slf4j
 @Component
-public class WordFilterUtil {
+public class WordFilterUtils {
     @Resource
-    private RedisUtil redisUtil;
-
-    private static final String BAD_WORD_KEY = "BadWord";
-    private static final int MIN_MATCH_TYPE = 1;
-    private static final int MAX_MATCH_TYPE = 2;
+    private RedisUtils redisUtil;
 
     private HashMap<String, String> badWordMap;
 
@@ -36,9 +35,11 @@ public class WordFilterUtil {
      * @return 过滤后字符串
      */
     public String filterWord(String str) {
-        Set<String> badWordSet = getBadWordSet();
-        toHashMap(badWordSet);
-        return replaceBadWord(str, MIN_MATCH_TYPE, "*");
+        if (badWordMap.isEmpty()) {
+            Set<String> badWordSet = getBadWordSet();
+            toHashMap(badWordSet);
+        }
+        return replaceBadWord(str, REPLACE_CHAR);
     }
 
     /**
@@ -47,7 +48,7 @@ public class WordFilterUtil {
      * @return 敏感词列表
      */
     private Set<String> getBadWordSet() {
-        Set<String> bakWordSet = redisUtil.setMembers(BAD_WORD_KEY);
+        Set<String> bakWordSet = redisUtil.setMembers(REDIS_BAD_WORD);
         if (bakWordSet.isEmpty()) {
             log.info("Redis中敏感词库为空");
         }
@@ -60,7 +61,7 @@ public class WordFilterUtil {
      * @param badWords 敏感词
      */
     private Boolean setBadWordSet(String... badWords) {
-        Long setSize = redisUtil.setAdd(BAD_WORD_KEY, badWords);
+        Long setSize = redisUtil.setAdd(REDIS_BAD_WORD, badWords);
         if (setSize.intValue() == badWords.length) {
             log.info("Redis中敏感词库新增成功");
             return true;
@@ -71,50 +72,50 @@ public class WordFilterUtil {
     }
 
     /**
-     * 讲敏感词库构建成类似树的结果，减少检索的匹配范围
-     *
+     * 将敏感词库构建成类似树的结果，减少检索的匹配范围
+     * 最终会通过单个字符来形成一个树结构，通过匹配key，以及最后的结束标识来判断是否命中
+     * 
      * @param badWordSet 敏感词集合
      */
+    @SuppressWarnings({"rawtypes","unchecked"})
     private void toHashMap(Set<String> badWordSet) {
-        HashMap<String, String> badWordMap = new HashMap<>(badWordSet.size());
-        String key;
-        Map nowMap;
-        HashMap<String, String> newWorMap;
+        badWordMap = new HashMap<>(badWordSet.size());
+        Map tempMap;
+        HashMap<String, String> sonMap;
         for (String badWord : badWordSet) {
-            key = badWord;
-            nowMap = badWordMap;
-            for (int i = 0; i < key.length(); i++) {
-                char keyChar = key.charAt(i);
-                Object map = nowMap.get(keyChar);
+            tempMap = badWordMap;
+            for (int i = 0; i < badWord.length(); i++) {
+                char charKey = badWord.charAt(i);
+                // 获取子树
+                Object map = tempMap.get(charKey);
 
                 if (map != null) {
-                    nowMap = (Map) map;
+                    // 如果子树存在，直接赋值
+                    tempMap = (Map) map;
                 } else {
-                    newWorMap = new HashMap<>();
-                    newWorMap.put("isEnd", "0");
-                    nowMap.put(keyChar, newWorMap);
-                    nowMap = newWorMap;
+                    // 如果子树不存在，则构建一个map，并将结束标志置为0
+                    sonMap = new HashMap<>();
+                    sonMap.put("isEnd", "0");
+                    tempMap.put(charKey, sonMap);
+                    tempMap = sonMap;
                 }
-
-                if (i == key.length() - 1) {
-                    nowMap.put("isEnd", "1");
+                if (i == badWord.length() - 1) {
+                    tempMap.put("isEnd", "1");
                 }
             }
         }
-        this.badWordMap = badWordMap;
     }
 
     /**
      * 替换敏感词
      *
      * @param str         原始字符串
-     * @param matchType   匹配规则
      * @param replaceChar 替换字符串
      * @return 替换结果字符串
      */
-    private String replaceBadWord(String str, int matchType, String replaceChar) {
+    private String replaceBadWord(String str, String replaceChar) {
         String result = str;
-        Set<String> badWordSet = getBadWord(str, matchType);
+        Set<String> badWordSet = getBadWord(str, MAX_MATCH_TYPE);
         StringBuilder replaceString;
         for (String badWord : badWordSet) {
             replaceString = new StringBuilder(replaceChar);
@@ -146,18 +147,17 @@ public class WordFilterUtil {
     /**
      * 检查文字中是否包含敏感词
      *
-     * @param str        原始字符
+     * @param str 原始字符
      * @param beginIndex 开始标记
      * @param matchType  匹配规则
      * @return 敏感词字符长度，不存在返回0
      */
+    @SuppressWarnings("rawtypes")
     private int checkBadWord(String str, int beginIndex, int matchType) {
         boolean flag = false;
-        // 匹配标识数默认为0
         int matchFlag = 0;
         char word;
         Map nowMap = badWordMap;
-
         for (int i = beginIndex; i < str.length(); i++) {
             word = str.charAt(i);
             // 获取指定key

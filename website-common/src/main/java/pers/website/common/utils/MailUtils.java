@@ -26,6 +26,7 @@ import static pers.website.common.constants.Constants.MailUtilsConf.*;
  */
 @Slf4j
 public class MailUtils {
+    
     /**
      * 正则校验邮箱地址
      * @param emailAddress 邮箱地址

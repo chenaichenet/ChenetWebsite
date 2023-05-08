@@ -38,7 +38,7 @@ public class Notice {
      */
     private String noticeContent;
     /**
-     * 公告发布时间，yyyy-MM-dd HH:mm:ss
+     * 公告发布时间：yyyy-MM-dd HH:mm:ss
      */
     private String noticeCreateTime;
     /**

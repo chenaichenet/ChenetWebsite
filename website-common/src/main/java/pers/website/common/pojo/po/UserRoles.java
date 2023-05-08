@@ -38,9 +38,13 @@ public class UserRoles {
      */
     private Boolean isPermanent;
     /**
-     * 生效时间：yyyy-MM-dd HH:mm:ss，-1表示永久
+     * 生效时间：yyyy-MM-dd HH:mm:ss
      */
-    private String effectiveDate;
+    private String effectiveTime;
+    /**
+     * 失效时间：yyyy-MM-dd HH:mm:ss
+     */
+    private String ineffectiveTime;
     /**
      * 是否有效，0：有效；-1：无效
      */

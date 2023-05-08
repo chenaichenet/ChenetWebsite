@@ -1,6 +1,7 @@
 package pers.website.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import pers.website.common.constants.Constants;
 import pers.website.common.exceptions.CustomException;
 
 import javax.crypto.*;
@@ -17,8 +18,6 @@ import java.security.NoSuchAlgorithmException;
 @Slf4j
 public class DesUtils {
     
-    private static final String STR_KEY = "Chenet_Website";
-
     /**
      * DES加解密
      * @param str 待加密数据
@@ -125,7 +124,7 @@ public class DesUtils {
      * @return SecretKey
      */
     private static SecretKey initKey() {
-        byte[] keyBytes = STR_KEY.getBytes();
+        byte[] keyBytes = Constants.DesUtilsConf.STR_KEY.getBytes();
         byte[] tempKey = new byte[8];
         if (tempKey.length > keyBytes.length) {
             int b = tempKey.length / keyBytes.length;

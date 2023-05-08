@@ -55,7 +55,7 @@ public class User implements UserDetails {
      */
     private List<Roles> userRolesList;
     /**
-     * 用户创建时间，yyyy-MM-dd HH:mm:ss
+     * 用户创建时间：yyyy-MM-dd HH:mm:ss
      */
     private String userCreateTime;
     /**

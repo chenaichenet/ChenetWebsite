@@ -30,10 +30,13 @@ public class Roles implements GrantedAuthority {
     /**
      * 角色名称
      */
-    @TableField("role_name")
     private String roleName;
     /**
-     * 角色创建时间，yyyy-MM-dd HH:mm:ss
+     * 角色层级
+     */
+    private String roleLevel;
+    /**
+     * 角色创建时间：yyyy-MM-dd HH:mm:ss
      */
     private String roleCreateTime;
     /**

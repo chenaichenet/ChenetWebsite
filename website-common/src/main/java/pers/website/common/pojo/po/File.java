@@ -9,40 +9,40 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 类型实体类
+ * 文件实体类
  *
  * @author ChenetChen
- * @since 2023/3/7 11:16
+ * @since 2023/5/8 11:16
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("t_type")
-public class Type {
+@TableName("t_file")
+public class File {
     /**
-     * 类型id，唯一，自增
+     * 文件id，唯一，自增
      */
     @TableId(type = IdType.AUTO)
+    private Integer fileId;
+    /**
+     * 文件名
+     */
+    private String fileName;
+    /**
+     * 文件类型
+     */
     private Integer typeId;
     /**
-     * 类型名称
+     * 文件地址（相对路径或链接）
      */
-    private String typeName;
+    private String fileAddress;
     /**
-     * 类型所属模块
+     * 文件上传时间：yyyy-MM-dd HH:mm:ss
      */
-    private Integer typeModule;
+    private String fileCreateTime;
     /**
-     * 类型描述
+     * 文件状态，0：有效；-1：无效
      */
-    private String typeDescription;
-    /**
-     * 类型创建时间：yyyy-MM-dd
-     */
-    private String typeCreateDate;
-    /**
-     * 类型状态，0：有效；-1：无效
-     */
-    private Integer typeState;
+    private Integer fileState;
 }

@@ -148,4 +148,26 @@ public interface Constants {
          */
         public static final String STR_KEY = "Chenet_Website";
     }
+
+    /**
+     * 文件工具类常量
+     */
+    class FileUtilsConf {
+        /**
+         * 文件相对项目模块路径
+         */
+        public final static String ROOT_PATH = "src/main/resources/static/";
+        /**
+         * 文件相对（resource/static）路径
+         */
+        public final static String FILE_PATH = "upload/files";
+        /**
+         * 书籍文件路径
+         */
+        public final static String BOOK_PATH = "upload/books";
+        /**
+         * 音乐文件路径
+         */
+        public final static String MUSIC_PATH = "upload/musics";
+    }
 }

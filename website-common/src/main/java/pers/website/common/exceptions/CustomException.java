@@ -25,4 +25,10 @@ public class CustomException extends RuntimeException{
     public CustomException(String message) {
         super(message, null, false, false);
     }
+
+    /**
+     * 原生构造方法
+     * @param e 异常对象
+     */
+    public CustomException(Exception e) {super(e);}
 }
