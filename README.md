@@ -94,7 +94,7 @@
 ├─data                                      --数据库文件
 ├─diary                                     --开发日志
 ├─logs                                      --日志文件
-├─website-blog                              --博客模块
+├─website-server                            --服务模块
 │  └─src
 │     ├─main
 │     │  ├─java.pers.website.server
