@@ -8,9 +8,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import pers.website.common.constants.Constants;
 import pers.website.common.dao.BookDao;
-import pers.website.common.enums.CountryEnum;
 import pers.website.common.pojo.po.Book;
-import pers.website.common.utils.ParamUtils;
 import pers.website.common.utils.RedisUtils;
 import pers.website.common.utils.WordFilterUtils;
 import pers.website.server.service.BookService;
@@ -95,8 +93,8 @@ public class BookServiceImpl implements BookService {
             }
         } else {
             hotBooks = bookDao.selectList(new QueryWrapper<Book>().lambda()
-                    .orderByDesc(Book::getViews)
-                    .orderByDesc(Book::getDownloadVolumes)); 
+                    .orderByDesc(Book::getBookViews)
+                    .orderByDesc(Book::getBookDownloadVolumes)); 
             if (hotBooks.size() != 0) {
                 for (Book hotBook : hotBooks) {
                     Boolean setStatus = redisUtils.lSet(Constants.RedisKey.HOT_BOOKS, Constants.RedisKey.REDIS_EXPIRE_TIME, JSON.toJSONString(hotBook));

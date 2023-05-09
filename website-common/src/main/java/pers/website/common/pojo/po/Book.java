@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * 书籍实体类
  *
@@ -54,11 +52,11 @@ public class Book {
     /**
      * 阅读量
      */
-    private Integer views;
+    private Integer bookViews;
     /**
      * 下载量
      */
-    private Integer downloadVolumes;
+    private Integer bookDownloadVolumes;
     /**
      * 书籍类型
      */
