@@ -1,4 +1,4 @@
-package pers.website.blog;
+package pers.website.server;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -14,8 +14,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication(scanBasePackages = "pers.website.*")
 @EnableDiscoveryClient
 @MapperScan(basePackages = {"pers.website.common.dao"})
-public class BlogApplication {
+public class ServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BlogApplication.class);
+        SpringApplication.run(ServerApplication.class);
     }
 }

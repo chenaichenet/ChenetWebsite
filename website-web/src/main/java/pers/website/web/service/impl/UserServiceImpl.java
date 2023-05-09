@@ -9,8 +9,8 @@ import pers.website.common.constants.Constants;
 import pers.website.common.pojo.dto.FeignDataDTO;
 import pers.website.common.pojo.po.User;
 import pers.website.common.utils.MailUtils;
-import pers.website.common.utils.ParamUtil;
-import pers.website.web.feign.BlogFeignClient;
+import pers.website.common.utils.ParamUtils;
+import pers.website.web.feign.ServerFeignClient;
 import pers.website.web.service.UserService;
 
 
@@ -23,7 +23,7 @@ import pers.website.web.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
-    private BlogFeignClient blogFeignClient;
+    private ServerFeignClient feignClient;
 
     /**
      * 获取验证码
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public FeignDataDTO<String> registeredVerCode(String email) {
         if (Boolean.TRUE.equals(MailUtils.checkMail(email))) {
-            return blogFeignClient.registeredVerCode(email);
+            return feignClient.registeredVerCode(email);
         } else {
             return FeignDataDTO.<String>builder()
                     .state(Constants.FEIGN_STATE_INTERCEPT)
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public FeignDataDTO<String> registered(String userName, String email, String password, String passwordOk, String verCode) {
         if (password.equals(passwordOk)) {
             if (Boolean.TRUE.equals(MailUtils.checkMail(email))) {
-                return blogFeignClient.registered(userName, email, password, verCode);
+                return feignClient.registered(userName, email, password, verCode);
             } else {
                 return FeignDataDTO.<String>builder()
                         .state(Constants.FEIGN_STATE_INTERCEPT)
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public FeignDataDTO<String> deleteUserVerCode(String email) {
         if (Boolean.TRUE.equals(MailUtils.checkMail(email))) {
-            return blogFeignClient.deleteUserVerCode(email);
+            return feignClient.deleteUserVerCode(email);
         } else {
             return FeignDataDTO.<String>builder()
                     .state(Constants.FEIGN_STATE_INTERCEPT)
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
                     .state(Constants.FEIGN_STATE_INTERCEPT)
                     .message("邮箱格式错误").build();
         } else {
-            return blogFeignClient.deleteUser(email, password, verCode);
+            return feignClient.deleteUser(email, password, verCode);
         }
     }
 
@@ -114,12 +114,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public FeignDataDTO<String> updateUser(String userName, String passwordOld, String password,
                                            String passwordOk, String phone, String email, String description) {
-        if (ParamUtil.isNotEmpty(true, passwordOld, password, passwordOk) && !password.equals(passwordOk)) {
+        if (ParamUtils.isNotEmpty(true, passwordOld, password, passwordOk) && !password.equals(passwordOk)) {
             return FeignDataDTO.<String>builder()
                     .state(Constants.FEIGN_STATE_INTERCEPT)
                     .message("两次输入新密码不一致").build();
         }
-        return blogFeignClient.updateUser(userName, passwordOld, password, passwordOk, phone, email, description);
+        return feignClient.updateUser(userName, passwordOld, password, passwordOk, phone, email, description);
     }
 
     /**
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public FeignDataDTO<User> login(String email, String password) {
         if (Boolean.TRUE.equals(MailUtils.checkMail(email))){
-            return blogFeignClient.login(email, password);
+            return feignClient.login(email, password);
         } else {
             return FeignDataDTO.<User>builder()
                     .state(Constants.FEIGN_STATE_INTERCEPT)
@@ -150,7 +150,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isEmpty(username)) {
             throw new UsernameNotFoundException("用户名为空");
         }
-        FeignDataDTO<? super User> userFeignDataDTO = blogFeignClient.loadUserByUsername(username);
+        FeignDataDTO<? super User> userFeignDataDTO = feignClient.loadUserByUsername(username);
         if (userFeignDataDTO != null && Constants.FEIGN_STATE_SUCCESS.equals(userFeignDataDTO.getState())) {
             return (UserDetails) userFeignDataDTO.getResult();
         }

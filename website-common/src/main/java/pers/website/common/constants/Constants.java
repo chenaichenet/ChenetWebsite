@@ -45,9 +45,13 @@ public interface Constants {
     }
 
     /**
-     * Redis键名常量
+     * Redis键名相关常量
      */
     class RedisKey {
+        /**
+         * redis过期时间
+         */
+        public static final long REDIS_EXPIRE_TIME = 600;
         /**
          * 注册验证码键名
          */
@@ -60,6 +64,10 @@ public interface Constants {
          * 敏感词键名
          */
         public static final String REDIS_BAD_WORD = "BAD_WORD";
+        /**
+         * 热门书籍键名
+         */
+        public static final String HOT_BOOKS = "HOT_BOOKS";
     }
 
     /**
@@ -133,6 +141,10 @@ public interface Constants {
          * 最大匹配规则
          */
         public static final int MAX_MATCH_TYPE = 2;
+        /**
+         * 匹配规则
+         */
+        public static final int MATCH_TYPE = MAX_MATCH_TYPE;
         /**
          * 替换字符
          */

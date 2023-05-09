@@ -52,6 +52,14 @@ public class Book {
      */
     private String bookDescription;
     /**
+     * 阅读量
+     */
+    private Integer views;
+    /**
+     * 下载量
+     */
+    private Integer downloadVolumes;
+    /**
      * 书籍类型
      */
     private Integer typeId;

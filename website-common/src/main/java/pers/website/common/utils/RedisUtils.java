@@ -77,7 +77,7 @@ public class RedisUtils {
     }
 
     /**
-     * 判断field是否存在
+     * 判断Hash结构中的键是否存在
      *
      * @param key   键
      * @param field hash中的键
@@ -179,7 +179,7 @@ public class RedisUtils {
     //=====String=====
 
     /**
-     * 普通缓存获取
+     * String类型-获取缓存
      *
      * @param key 键
      * @return 值
@@ -189,7 +189,7 @@ public class RedisUtils {
     }
 
     /**
-     * 普通缓存放入
+     * String类型-设置缓存
      *
      * @param key   键
      * @param value 值
@@ -206,7 +206,7 @@ public class RedisUtils {
     }
 
     /**
-     * 普通缓存放入并设置时间
+     * String类型-设置缓存并设置过期时间（秒）
      *
      * @param key   键
      * @param value 值
@@ -247,7 +247,7 @@ public class RedisUtils {
     //=====HashMap=====
 
     /**
-     * 获取HashMap缓存
+     * Hash类型-获取缓存
      *
      * @param key     键
      * @param hashKey hash键
@@ -258,7 +258,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获取HashMap中的所有值
+     * Hash类型-获取缓存
      *
      * @param key 键
      * @return map对象
@@ -268,7 +268,7 @@ public class RedisUtils {
     }
 
     /**
-     * HashMap缓存存入
+     * Hash类型-设置缓存
      *
      * @param key 键
      * @param map 对象
@@ -285,7 +285,7 @@ public class RedisUtils {
     }
 
     /**
-     * HashMap缓存存入并设置过期时间
+     * Hash类型-设置缓存并设置过期时间（秒）
      *
      * @param key  键
      * @param map  map对象
@@ -306,7 +306,7 @@ public class RedisUtils {
     }
 
     /**
-     * 向对应hash表中存入数据，不存在则创建
+     * Hash类型-设置缓存，不存在则创建
      *
      * @param key     键
      * @param hashKey hash键
@@ -324,7 +324,7 @@ public class RedisUtils {
     }
 
     /**
-     * 向对应hash表中存入数据，不存在则创建
+     * Hash类型-设置缓存，不存在则创建，并设置过期时间（秒）
      *
      * @param key     键
      * @param hashKey hash键
@@ -346,7 +346,7 @@ public class RedisUtils {
     }
 
     /**
-     * 删除hash表中的值
+     * Hash类型-删除缓存
      *
      * @param key  键 不能为null
      * @param item 项 可以使多个 不能为null
@@ -356,18 +356,18 @@ public class RedisUtils {
     }
 
     /**
-     * 判断hash表中是否有该项的值
+     * Hash类型-判断是否有该项的值
      *
      * @param key     键 不能为null
      * @param hashKey 项 不能为null
-     * @return true 存在 false不存在
+     * @return true-存在；false-不存在
      */
     public Boolean hashHasKey(String key, String hashKey) {
         return stringRedisTemplate.opsForHash().hasKey(key, hashKey);
     }
 
     /**
-     * hash递增 如果不存在,就会创建一个 并把新增后的值返回
+     * Hash类型-递增 如果不存在,就会创建一个 并把新增后的值返回
      *
      * @param key     键
      * @param hashKey 项
@@ -379,7 +379,7 @@ public class RedisUtils {
     }
 
     /**
-     * hash递减
+     * Hash类型-递减
      *
      * @param key     键
      * @param hashKey 项
@@ -391,7 +391,7 @@ public class RedisUtils {
     }
 
     /**
-     * 查找指定Hash的指定字段
+     * Hash类型-查找指定字段
      *
      * @param key     键
      * @param pattern 匹配字符
@@ -406,7 +406,7 @@ public class RedisUtils {
     //=====Set=====
 
     /**
-     * 根据key获取Set中的所有值
+     * Set类型-获取缓存
      *
      * @param key 键
      * @return 结果集
@@ -421,7 +421,7 @@ public class RedisUtils {
     }
 
     /**
-     * 根据value从一个set中查询,是否存在
+     * Set类型-判断是否存在value值
      *
      * @param key   键
      * @param value 值
@@ -437,7 +437,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将数据放入set缓存
+     * Set类型-设置缓存
      *
      * @param key    键
      * @param values 值 可以是多个
@@ -453,7 +453,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将set数据放入缓存
+     * Set类型-设置缓存并设置过期时间（秒）
      *
      * @param key    键
      * @param time   时间(秒)
@@ -474,7 +474,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获取set缓存的长度
+     * Set类型-获取缓存的长度
      *
      * @param key 键
      * @return 长度
@@ -489,7 +489,7 @@ public class RedisUtils {
     }
 
     /**
-     * 移除值为value的
+     * Set类型-移除值为value的缓存
      *
      * @param key    键
      * @param values 值 可以是多个
@@ -507,11 +507,11 @@ public class RedisUtils {
     //=====List=====
 
     /**
-     * 获取list缓存的内容
+     * List类型-获取缓存
      *
      * @param key   键
      * @param start 开始
-     * @param end   结束  0 到 -1代表所有值
+     * @param end   结束  0 到 -1 代表所有值
      * @return 结果
      */
     public List<String> listRange(String key, long start, long end) {
@@ -524,7 +524,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获取list缓存的长度
+     * List类型-获取缓存的长度
      *
      * @param key 键
      * @return 长度
@@ -539,7 +539,7 @@ public class RedisUtils {
     }
 
     /**
-     * 通过索引 获取list中的值
+     * List类型-通过索引缓存缓存
      *
      * @param key   键
      * @param index 索引  index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推
@@ -555,7 +555,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将list放入缓存
+     * List类型-设置缓存
      *
      * @param key   键
      * @param value 值
@@ -572,7 +572,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将list放入缓存
+     * List类型-设置缓存并设置过期时间（秒）
      *
      * @param key   键
      * @param value 值
@@ -593,7 +593,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将list放入缓存
+     * List类型-设置缓存
      *
      * @param key   键
      * @param value 值
@@ -610,7 +610,7 @@ public class RedisUtils {
     }
 
     /**
-     * 将list放入缓存
+     * List类型-设置缓存并设置过期时间（秒）
      *
      * @param key   键
      * @param value 值
@@ -631,7 +631,7 @@ public class RedisUtils {
     }
 
     /**
-     * 根据索引修改list中的某条数据
+     * List类型-根据索引修改其中数据
      *
      * @param key   键
      * @param index 索引
@@ -649,7 +649,7 @@ public class RedisUtils {
     }
 
     /**
-     * 移除N个值为value
+     * List类型-移除N个值为value的缓存
      *
      * @param key   键
      * @param count 移除多少个
@@ -666,7 +666,7 @@ public class RedisUtils {
     }
 
     /**
-     * 移除列表索引范围之外的值
+     * List类型-移除列表索引范围之外的值
      *
      * @param key 键
      */
@@ -679,7 +679,7 @@ public class RedisUtils {
     }
 
     /**
-     * 移除列表索引范围之外的值
+     * List类型-移除列表索引范围之外的值
      *
      * @param key 键
      */

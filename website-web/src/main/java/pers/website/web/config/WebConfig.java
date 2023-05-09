@@ -17,7 +17,6 @@ import java.util.Locale;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
     /**
      * 区域信息解析器手动创建会覆盖系统自动的，所以自己添加到容器中
      * @return localeResolver

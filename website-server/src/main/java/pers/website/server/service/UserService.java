@@ -1,4 +1,4 @@
-package pers.website.blog.service;
+package pers.website.server.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import pers.website.common.pojo.po.User;

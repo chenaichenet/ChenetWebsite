@@ -17,7 +17,6 @@ import static pers.website.common.constants.Constants.FileUtilsConf.*;
  */
 @Slf4j
 public class FileUtils {
-    
     /**
      * 上传文件
      * @param type 文件分类——1-文件；2-书籍；3-音乐

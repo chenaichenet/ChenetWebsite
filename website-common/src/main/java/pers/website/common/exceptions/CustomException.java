@@ -9,7 +9,6 @@ import pers.website.common.enums.ExceptionEnum;
  * @since 2023/3/7 12:12
  */
 public class CustomException extends RuntimeException{
-    
     /**
      * 枚举异常信息
      * @param exceptionEnum 枚举

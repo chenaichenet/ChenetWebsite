@@ -22,7 +22,6 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class LogAspect {
-
     @Resource
     IpUtils ipUtils;
 

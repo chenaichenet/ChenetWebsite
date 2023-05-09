@@ -17,7 +17,6 @@ import static pers.website.common.constants.Constants.IpUtilsConf.*;
 @Slf4j
 @Component
 public class IpUtils {
-    
     /**
      * 获取IP地址
      * @param request 请求

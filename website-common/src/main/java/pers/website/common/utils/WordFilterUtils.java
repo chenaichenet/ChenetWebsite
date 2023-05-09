@@ -39,7 +39,7 @@ public class WordFilterUtils {
             Set<String> badWordSet = getBadWordSet();
             toHashMap(badWordSet);
         }
-        return replaceBadWord(str, REPLACE_CHAR);
+        return replaceBadWord(str);
     }
 
     /**
@@ -109,17 +109,16 @@ public class WordFilterUtils {
     /**
      * 替换敏感词
      *
-     * @param str         原始字符串
-     * @param replaceChar 替换字符串
+     * @param str 原始字符串
      * @return 替换结果字符串
      */
-    private String replaceBadWord(String str, String replaceChar) {
+    private String replaceBadWord(String str) {
         String result = str;
-        Set<String> badWordSet = getBadWord(str, MAX_MATCH_TYPE);
+        Set<String> badWordSet = getBadWord(str);
         StringBuilder replaceString;
         for (String badWord : badWordSet) {
-            replaceString = new StringBuilder(replaceChar);
-            replaceString.append(replaceChar.repeat(Math.max(0, badWord.length() - 1)));
+            replaceString = new StringBuilder(REPLACE_CHAR);
+            replaceString.append(REPLACE_CHAR.repeat(Math.max(0, badWord.length() - 1)));
             result = result.replaceAll(badWord, replaceString.toString());
         }
         return result;
@@ -129,13 +128,12 @@ public class WordFilterUtils {
      * 获取文字中的敏感词
      *
      * @param str       原始字符串
-     * @param matchType 匹配规则
      * @return 存在的敏感词集合
      */
-    private Set<String> getBadWord(String str, int matchType) {
+    private Set<String> getBadWord(String str) {
         Set<String> wordSet = new HashSet<>();
         for (int i = 0; i < str.length(); i++) {
-            int length = checkBadWord(str, i, matchType);
+            int length = checkBadWord(str, i);
             if (length > 0) {
                 wordSet.add(str.substring(i, i + length));
                 i = i + length - 1;
@@ -149,11 +147,10 @@ public class WordFilterUtils {
      *
      * @param str 原始字符
      * @param beginIndex 开始标记
-     * @param matchType  匹配规则
      * @return 敏感词字符长度，不存在返回0
      */
     @SuppressWarnings("rawtypes")
-    private int checkBadWord(String str, int beginIndex, int matchType) {
+    private int checkBadWord(String str, int beginIndex) {
         boolean flag = false;
         int matchFlag = 0;
         char word;
@@ -167,7 +164,7 @@ public class WordFilterUtils {
                 // 存在，则判断是否为最后一个
                 if ("1".equals(nowMap.get("isEnd"))) {
                     flag = true;
-                    if (MIN_MATCH_TYPE == matchType) {
+                    if (MIN_MATCH_TYPE == MATCH_TYPE) {
                         break;
                     }
                 }

@@ -97,7 +97,7 @@
 ├─website-blog                              --博客模块
 │  └─src
 │     ├─main
-│     │  ├─java.pers.website.blog
+│     │  ├─java.pers.website.server
 │     │  │  ├─consult                       --远程调用
 │     │  │  └─service                       --服务
 │     │  │      └─impl                      --服务实现

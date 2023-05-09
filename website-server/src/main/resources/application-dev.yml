@@ -5,7 +5,7 @@ spring:
   main:
     allow-circular-references: true
   application:
-    name: Website-Blog
+    name: Website-Server
   cloud:
     nacos:
       config:
@@ -43,7 +43,7 @@ logging:
     root: error
     pers.website: error
   file:
-    name: logs/website-blog-dev.log
+    name: logs/website-server-dev.log
 
 mybatis-plus:
   configuration:

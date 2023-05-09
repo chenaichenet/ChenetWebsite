@@ -21,7 +21,6 @@ import static pers.website.common.constants.Constants.ImageUtilsConf.*;
  * @since 2023/4/19 9:29
  */
 public class ImageUtils {
-
     /**
      * 添加水印
      * @param watermarkType 水印样式（1：全图水印；2：右下角水印）

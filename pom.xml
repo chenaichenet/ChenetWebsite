@@ -14,7 +14,7 @@
     <modules>
         <module>website-web</module>
         <module>website-common</module>
-        <module>website-blog</module>
+        <module>website-server</module>
     </modules>
 
     <!--开发者信息-->

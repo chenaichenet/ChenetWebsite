@@ -1,7 +1,6 @@
 package pers.website.common.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
-import pers.website.common.exceptions.CustomException;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -12,8 +11,7 @@ import java.util.Random;
  * @author ChenetChen
  * @since 2023/3/7 14:03
  */
-public class ParamUtil {
-    
+public class ParamUtils {
     /**
      * 从HashMap结构体中获取对应key的值
      * @param hashMap hashMap结构对象

@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 /**
  * Spring Security配置
  *
@@ -17,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
-    
     @Bean
     public WebSecurityCustomizer customizer() {
         return web -> web.ignoring().anyRequest();

@@ -1,4 +1,4 @@
-package pers.website.blog.service.impl;
+package pers.website.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Resource;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pers.website.blog.service.UserService;
+import pers.website.server.service.UserService;
 import pers.website.common.constants.Constants;
 import pers.website.common.dao.RoleDao;
 import pers.website.common.dao.UserDao;
@@ -21,7 +21,7 @@ import pers.website.common.pojo.po.Roles;
 import pers.website.common.pojo.po.User;
 import pers.website.common.pojo.po.UserRoles;
 import pers.website.common.utils.MailUtils;
-import pers.website.common.utils.ParamUtil;
+import pers.website.common.utils.ParamUtils;
 import pers.website.common.utils.RedisUtils;
 
 import java.text.SimpleDateFormat;
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     public String registeredVerCode(String email) {
         Long count = userDao.selectCount(new QueryWrapper<User>().eq("user_email", email));
         if (count == 0) {
-            String verCode = ParamUtil.newVerCode(6);
+            String verCode = ParamUtils.newVerCode(6);
             if (Boolean.TRUE.equals(redisUtil.hashPut(Constants.RedisKey.REDIS_REGISTER_VER_CODE, email, verCode, 120))) {
                 MailUtils.sendMail(email, "注册", verCode);
                 return verCode;
@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String deleteUserVerCode(String email) {
-        String verCode = ParamUtil.newVerCode(6);
+        String verCode = ParamUtils.newVerCode(6);
         if (Boolean.TRUE.equals(redisUtil.hashPut(Constants.RedisKey.REDIS_DELETE_VER_CODE, email, verCode, 120))) {
             MailUtils.sendMail(email, "注销", verCode);
             return verCode;

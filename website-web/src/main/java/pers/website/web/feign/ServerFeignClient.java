@@ -1,28 +1,27 @@
 package pers.website.web.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pers.website.common.pojo.dto.FeignDataDTO;
+import pers.website.common.pojo.po.Book;
 import pers.website.common.pojo.po.User;
 
+import java.util.List;
+
 /**
- * 博客相关请求远程调用接口
+ * 远程调用服务接口
  * 
  * @author ChenetChen
  * @since 2023/3/7 15:49
  */
-@FeignClient(name = "Website-Blog", fallback = BlogFeignClientFallBack.class)
-public interface BlogFeignClient {
-
+@FeignClient(name = "Website-Server", fallback = ServerFeignClientFallBack.class)
+public interface ServerFeignClient {
     /**
      * 注册验证码
      * @param email 邮箱
      * @return 验证码
      */
-    @RequestMapping(value = "/user/registeredVerCode", method = RequestMethod.POST)
+    @PostMapping("/user/registeredVerCode")
     FeignDataDTO<String> registeredVerCode(@RequestParam("email") String email);
 
     /**
@@ -33,7 +32,7 @@ public interface BlogFeignClient {
      * @param verCode 验证码
      * @return 注册结果
      */
-    @RequestMapping(value = "/user/registered", method = RequestMethod.POST)
+    @PostMapping("/user/registered")
     FeignDataDTO<String> registered(@RequestParam("userName") String userName,
                                     @RequestParam("email") String email,
                                     @RequestParam("password") String password,
@@ -44,7 +43,7 @@ public interface BlogFeignClient {
      * @param email 邮箱
      * @return 验证码
      */
-    @RequestMapping(value = "/user/deleteUserVerCode", method = RequestMethod.POST)
+    @PostMapping("/user/deleteUserVerCode")
     FeignDataDTO<String> deleteUserVerCode(@RequestParam("email") String email);
 
     /**
@@ -54,7 +53,7 @@ public interface BlogFeignClient {
      * @param verCode 验证码
      * @return 注销结果
      */
-    @RequestMapping(value = "/user/deleteUser", method = RequestMethod.POST)
+    @PostMapping("/user/deleteUser")
     FeignDataDTO<String> deleteUser(@RequestParam("email") String email,
                                     @RequestParam("password") String password,
                                     @RequestParam("verCode") String verCode);
@@ -70,7 +69,7 @@ public interface BlogFeignClient {
      * @param description 简介
      * @return 修改结果
      */
-    @RequestMapping(value = "/user/updateUser")
+    @PostMapping("/user/updateUser")
     FeignDataDTO<String> updateUser(@RequestParam("userName") String userName,
                                     @RequestParam("passwordOld") String passwordOld,
                                     @RequestParam("password") String password,
@@ -85,7 +84,7 @@ public interface BlogFeignClient {
      * @param password 密码
      * @return 结果集
      */
-    @RequestMapping(value = "/user/login")
+    @PostMapping("/user/login")
     FeignDataDTO<User> login(@RequestParam("email") String email,
                              @RequestParam("password") String password);
 
@@ -94,6 +93,48 @@ public interface BlogFeignClient {
      * @param userName 用户名
      * @return 用户
      */
-    @RequestMapping(value = "/user/loadUserByUsername")
+    @PostMapping(value = "/user/loadUserByUsername")
     FeignDataDTO<? super User> loadUserByUsername(@RequestParam("userName") String userName);
+    
+    //=====Book=====
+
+    /**
+     * 通过id获取书籍
+     * @param bookId 书籍id
+     * @return 书籍
+     */
+    @GetMapping("/book/getBook/{bookId}")
+    FeignDataDTO<Book> getBookById(@PathVariable int bookId);
+
+    /**
+     * 添加书籍
+     * @param bookName 书籍名称
+     * @param bookAuthor 书籍作者
+     * @param authorCountry 作者国籍
+     * @param pressName 出版社
+     * @param pressDate 出版日期
+     * @param bookDescription 书籍简介
+     * @param typeId 类型id
+     * @param userId 上传用户id
+     * @param fileId 文件id
+     * @return 上传结果
+     */
+    @PostMapping("/book/addBook")
+    FeignDataDTO<Integer> addBook(@RequestParam("bookName") String bookName,
+                                  @RequestParam("bookAuthor") String bookAuthor,
+                                  @RequestParam("authorCountry") String authorCountry,
+                                  @RequestParam("pressName") String pressName,
+                                  @RequestParam("pressDate") String pressDate,
+                                  @RequestParam("bookdescription") String bookDescription,
+                                  @RequestParam("typeId") int typeId,
+                                  @RequestParam("userId") int userId,
+                                  @RequestParam("fileId") int fileId);
+    
+    /**
+     * 获取热门书籍
+     * @param size 热门列表大小
+     * @return 热门书籍
+     */
+    @RequestMapping(value = "/book/getHotBooks")
+    FeignDataDTO<List<Book>> getHotBooks(@RequestParam("size") int size);
 }

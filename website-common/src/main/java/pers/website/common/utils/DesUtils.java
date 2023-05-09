@@ -17,7 +17,6 @@ import java.security.NoSuchAlgorithmException;
  */
 @Slf4j
 public class DesUtils {
-    
     /**
      * DES加解密
      * @param str 待加密数据

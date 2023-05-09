@@ -9,9 +9,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>pers.chenet.website.blog</groupId>
-    <artifactId>website-blog</artifactId>
-    <description>博客模块</description>
+    <groupId>pers.chenet.website.server</groupId>
+    <artifactId>website-server</artifactId>
+    <description>服务模块</description>
     <version>1.0</version>
 
     <properties>

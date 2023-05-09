@@ -1,4 +1,4 @@
-package pers.website.blog.consult;
+package pers.website.server.consult;
 
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.ObjectUtils;
@@ -6,14 +6,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pers.website.blog.service.UserService;
+import pers.website.server.service.UserService;
 import pers.website.common.constants.Constants;
 import pers.website.common.pojo.dto.FeignDataDTO;
 import pers.website.common.pojo.po.User;
 
 
 /**
- * 博客用户相关请求
+ * 用户相关远程请求
  * 
  * @author ChenetChen
  * @since 2023/3/11 12:18
